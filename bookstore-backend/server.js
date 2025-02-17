@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 📌 MariaDB 연결 정보 설정
+//  MariaDB 연결 정보 설정
 const db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'book_sjh',
@@ -15,7 +15,7 @@ const db = mysql.createConnection({
     database: 'bookstore'
 });
 
-// 📌 DB 연결 확인
+// DB 연결 확인
 db.connect(err => {
     if (err) {
         console.error('❌ DB 연결 실패:', err);
@@ -24,7 +24,7 @@ db.connect(err => {
     }
 });
 
-// 📌 책 목록 조회 API
+// 책 목록 조회 API
 app.get('/api/books', (req, res) => {
     db.query('SELECT * FROM books', (err, results) => {
         if (err) {
@@ -34,7 +34,17 @@ app.get('/api/books', (req, res) => {
     });
 });
 
-// 📌 책 추가 API
+// 책 상세 조회 API (GET /api/books/:id)
+app.get('/api/books/:id', (req, res) => {
+    const { id } = req.params;
+    db.query('SELECT * FROM books WHERE id = ?', [id], (err, result) => {
+        if (err) return res.status(500).json({ error: '책 조회 실패' });
+        if (result.length === 0) return res.status(404).json({ error: '책을 찾을 수 없음' });
+        res.json(result[0]);
+    });
+});
+
+// 책 추가 API
 app.post('/api/books', (req, res) => {
     const { title, author, price, stock } = req.body;
     db.query('INSERT INTO books (title, author, price, stock) VALUES (?, ?, ?, ?)', 
@@ -44,7 +54,7 @@ app.post('/api/books', (req, res) => {
     });
 });
 
-// 📌 책 수정 API
+//  책 수정 API
 app.put('/api/books/:id', (req, res) => {
     const { title, author, price, stock } = req.body;
     const { id } = req.params;
@@ -55,7 +65,7 @@ app.put('/api/books/:id', (req, res) => {
     });
 });
 
-// 📌 책 삭제 API
+//  책 삭제 API
 app.delete('/api/books/:id', (req, res) => {
     const { id } = req.params;
     db.query('DELETE FROM books WHERE id=?', [id], (err, results) => {
@@ -64,8 +74,8 @@ app.delete('/api/books/:id', (req, res) => {
     });
 });
 
-// 📌 서버 실행
+// 서버 실행
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`🚀 서버 실행 중: http://localhost:${PORT}`);
+    console.log(` 서버 실행 중: http://localhost:${PORT}`);
 });
