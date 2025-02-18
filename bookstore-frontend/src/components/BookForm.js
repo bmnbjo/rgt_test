@@ -18,7 +18,7 @@ function BookForm({ refreshBooks }) {
 
   return (
     <div className="book-form-container">
-      <h2>새 책 추가</h2>
+      <h2>신규 도서 추가</h2>
       <form className="book-form" onSubmit={handleSubmit}>
         <input type="text" name="title" value={form.title} onChange={handleChange} placeholder="제목" required />
         <input type="text" name="author" value={form.author} onChange={handleChange} placeholder="저자" required />

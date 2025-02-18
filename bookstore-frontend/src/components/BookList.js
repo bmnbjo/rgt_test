@@ -28,14 +28,14 @@ function BookList() {
     setBooks(updatedBooks);
     setFilteredBooks(updatedBooks);
 
-    // 📌 삭제 후 현재 페이지의 데이터 개수 확인
+    // 삭제 후 현재 페이지의 데이터 개수 확인
     const totalPages = Math.ceil(updatedBooks.length / booksPerPage);
     if (currentPage > totalPages) {
       setCurrentPage(Math.max(totalPages, 1)); // 이전 페이지로 이동 (최소 1페이지)
     }
   };
 
-  // 🔍 검색 버튼 클릭 시 필터링 실행 + 첫 페이지로 이동
+  // 검색 버튼 클릭 시 필터링 실행 + 첫 페이지로 이동
   const handleSearch = () => {
     if (!searchQuery.trim()) {
       setFilteredBooks(books);
@@ -58,9 +58,9 @@ function BookList() {
 
   return (
     <div className="bookstore-container">
-      <h2 className="title">재고 관리</h2>
+      <h2 className="title">보유 도서 리스트</h2>
 
-      {/* ✅ 검색 기능 추가 (버튼 방식) */}
+      {/* 검색 기능 추가 (버튼 방식) */}
       <div className="search-container">
         <select onChange={(e) => setSearchType(e.target.value)} value={searchType}>
           <option value="title">제목</option>
