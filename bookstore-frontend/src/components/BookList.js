@@ -90,7 +90,7 @@ function BookList() {
             <tr key={book.id} className="book-item">
               <td className="book-title" onClick={() => navigate(`/books/${book.id}`)}>{book.title}</td>
               <td className="book-author">{book.author}</td>
-              <td className="book-price">{book.price}원</td>
+              <td className="book-price">{Math.round(book.price).toLocaleString()}원</td>
               <td className="book-stock">{book.stock}권</td>
               <td className="book-actions">
                 <button className="edit-btn" onClick={() => navigate(`/books/${book.id}`)}>수정</button>
