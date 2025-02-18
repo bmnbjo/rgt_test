@@ -35,12 +35,13 @@
 - 백엔드 폴더로 이동 : cd bookstore-backend 
 - 패키지 설치 : npm install
 - 환경 변수 파일 생성(bookstore-backend/.env) :
+  ```plaintext
   PORT=5000
   DB_HOST=svc.sel4.cloudtype.app
   DB_PORT=30632
   DB_USER=book_sjh
-  DB_PASSWORD=your_password
-  DB_NAME=bookstorenode 
+  DB_PASSWORD=bobojh
+  DB_NAME=bookstore 
 - 서버 실행 : node server.js
 ### **3. 프론트 실행 (React)** 
 - 프론트 폴더로 이동 : cd ../bookstore-frontend
