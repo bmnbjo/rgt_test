@@ -9,7 +9,7 @@ function Home() {
 
   return (
     <div>
-      <h1>Bookstore</h1>
+      
       <BookForm refreshBooks={refreshBooks} />
       <BookList key={reload} />
     </div>
