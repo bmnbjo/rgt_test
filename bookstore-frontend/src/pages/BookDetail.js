@@ -6,15 +6,24 @@ import "../styles/BookDetail.css";
 function BookDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [book, setBook] = useState({ title: "", author: "", price: "", stock: "" });
+  const [book, setBook] = useState({ title: "", author: "", price: "", stock: 0 });
+
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
+  console.log("API_BASE_URL:", API_BASE_URL);
 
   useEffect(() => {
     fetchBook();
-  }, []);
+  }, [id]);
 
   const fetchBook = async () => {
-    const response = await axios.get(`http://localhost:5000/api/books/${id}`);
-    setBook(response.data);
+    try {
+      const response = await axios.get(`${API_BASE_URL}/${id}`);
+      setBook(response.data);
+    } catch (error) {
+      console.error("도서 정보를 불러오는 중 오류 발생:", error);
+      alert("도서 정보를 불러올 수 없습니다.");
+    }
   };
 
   const handleChange = (e) => {
@@ -22,18 +31,29 @@ function BookDetail() {
   };
 
   const handleSave = async () => {
-    await axios.put(`http://localhost:5000/api/books/${id}`, book);
-    alert("수정 완료되었습니다.");
+    try {
+      await axios.put(`${API_BASE_URL}/${id}`, book);
+      alert("수정 완료되었습니다.");
+    } catch (error) {
+      console.error("도서 수정 오류:", error);
+      alert("수정 중 오류가 발생했습니다.");
+    }
   };
 
   const handleStockChange = async (change) => {
     const newStock = Math.max(0, book.stock + change);
-    setBook({ ...book, stock: newStock });
+    try {
+      await axios.put(`${API_BASE_URL}/${id}`, { ...book, stock: newStock });
+      setBook({ ...book, stock: newStock });
+    } catch (error) {
+      console.error("재고 수정 오류:", error);
+      alert("재고 변경 중 오류가 발생했습니다.");
+    }
   };
 
   return (
     <div className="book-detail-container">
-      <h2>📖 도서 상세 정보</h2>
+      <h2>도서 상세 정보</h2>
       <div className="book-detail-form">
         <input type="text" name="title" value={book.title} onChange={handleChange} placeholder="제목" />
         <input type="text" name="author" value={book.author} onChange={handleChange} placeholder="저자" />

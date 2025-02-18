@@ -39,9 +39,24 @@ app.get('/api/books', (req, res) => {
 app.post('/api/books', (req, res) => {
     const { title, author, price, stock } = req.body;
     db.query('INSERT INTO books (title, author, price, stock) VALUES (?, ?, ?, ?)', 
+
+        
     [title, author, price, stock], (err, results) => {
         if (err) return res.status(500).json({ error: '책 추가 실패' });
         res.json({ message: '책 추가 성공', id: results.insertId });
+    });
+});
+
+app.get('/api/books/:id', (req, res) => {
+    const { id } = req.params;
+    db.query('SELECT * FROM books WHERE id = ?', [id], (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: '데이터 조회 실패' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ error: '해당 도서를 찾을 수 없음' });
+        }
+        res.json(results[0]); // 개별 도서 정보 반환
     });
 });
 
