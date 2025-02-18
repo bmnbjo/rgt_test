@@ -32,21 +32,21 @@
 ## **프로젝트 실행 방법**
 ### **1. 프로젝트 다운로드 (Git Clone)**
 ### **2. 백엔드 실행 (Node.js + Express)** 
-백엔드 폴더로 이동 : cd bookstore-backend 
-패키지 설치 : npm install
-환경 변수 파일 생성(bookstore-backend/.env) :
+- 백엔드 폴더로 이동 : cd bookstore-backend 
+- 패키지 설치 : npm install
+- 환경 변수 파일 생성(bookstore-backend/.env) :
   PORT=5000
   DB_HOST=svc.sel4.cloudtype.app
   DB_PORT=30632
   DB_USER=book_sjh
   DB_PASSWORD=your_password
   DB_NAME=bookstorenode 
-서버 실행 : node server.js
+- 서버 실행 : node server.js
 ### **3. 프론트 실행 (React)** 
-프론트 폴더로 이동 : cd ../bookstore-frontend
-패키지 설치 : npm install
-환경 변수 파일 생성(bookstore-frontend/.env) 
+- 프론트 폴더로 이동 : cd ../bookstore-frontend
+- 패키지 설치 : npm install
+- 환경 변수 파일 생성(bookstore-frontend/.env) 
  : REACT_APP_API_URL=http://localhost:5000/api/books
-서버 실행 : npm start
+- 서버 실행 : npm start
 
 감사합니다. 
